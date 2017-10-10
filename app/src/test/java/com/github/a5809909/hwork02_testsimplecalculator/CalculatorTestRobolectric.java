@@ -1,4 +1,11 @@
 package com.github.a5809909.hwork02_testsimplecalculator;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.EditText;
+
+import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +17,7 @@ import org.robolectric.annotation.Config;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
@@ -18,42 +26,47 @@ import static junit.framework.Assert.assertFalse;
 
         private ActivityController<CalculatorActivity> activityController;
 
+        private CalculatorActivity calculatorActivity;
+
         @Before
         public void init(){
             activityController= Robolectric.buildActivity(CalculatorActivity.class);
         }
 
+        @After
+        public void destroyActivity(){
+            activityController.pause().stop().destroy();
+        }
+
+
         @Test
-        public void testCalculator() {
+        public void testViews() {
             activityController.create();
             activityController.start();
             activityController.resume();
-
 
             CalculatorActivity calculatorActivity = activityController.get();
 
             boolean isEditTextFirstNumberEnable=calculatorActivity.findViewById(R.id.etFirstNumber).isEnabled();
             assertEquals(isEditTextFirstNumberEnable,true);
-
-
             boolean isEditTextSecondNumberEnable = calculatorActivity.findViewById(R.id.etSecondNumber).isEnabled();
             assertEquals(isEditTextSecondNumberEnable, true);
 
-
-            boolean isBtnAddEnabled = calculatorActivity.findViewById(R.id.btnAdd).isEnabled();
-            assertEquals(isBtnAddEnabled, true);
-
-            boolean isBtnSubtractEnabled = calculatorActivity.findViewById(R.id.btnSubtract).isEnabled();
-            assertEquals(isBtnSubtractEnabled, true);
-
-            boolean isBtnMultiplyEnabled = calculatorActivity.findViewById(R.id.btnMultiply).isEnabled();
-            assertEquals(isBtnMultiplyEnabled, true);
-
-            boolean isBtnDivideEnabled = calculatorActivity.findViewById(R.id.btnDivide).isEnabled();
-            assertEquals(isBtnDivideEnabled, true);
+            Assert.assertEquals(calculatorActivity.findViewById(R.id.btnAdd).getVisibility(), View.VISIBLE);
+            Assert.assertEquals(calculatorActivity.findViewById(R.id.btnSubtract).getVisibility(), View.VISIBLE);
+            Assert.assertTrue(calculatorActivity.findViewById(R.id.btnMultiply).getVisibility()==View.VISIBLE);
+            Assert.assertFalse(calculatorActivity.findViewById(R.id.btnDivide).getVisibility()!=View.VISIBLE);
 
 
-        }
+            TextView mtvResult = (TextView)calculatorActivity.findViewById(R.id.tvResult);
+            EditText metFirstNumber = (EditText) calculatorActivity.findViewById(R.id.etFirstNumber);
+            EditText metSecondNumber = (EditText) calculatorActivity.findViewById(R.id.etSecondNumber);
+            View mbtnAdd=calculatorActivity.findViewById((R.id.btnAdd));
+            metFirstNumber.setText("2");
+            metSecondNumber.setText("5");
+            mbtnAdd.performClick();
 
 
     }
+
+}
