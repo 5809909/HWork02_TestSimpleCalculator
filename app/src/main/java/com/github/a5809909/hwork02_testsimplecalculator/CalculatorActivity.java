@@ -8,6 +8,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class CalculatorActivity extends AppCompatActivity implements View.OnClickListener {
+    //TODO - rename variables. 
+    // Sample : private Button mAddButton;
+    // private EditText mFirstValueEditText;
+    
+    
     private Button btnAdd,btnsub,btndivide,btnmul;
     private TextView tvresult;
 
@@ -16,12 +21,12 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); //TODO add new line after super-method
         setContentView(R.layout.activity_calculator);
         init();
     }
 
-    private void init() {
+    private void init() {//TODO format code : add spaces
         btnAdd =(Button)findViewById(R.id.btnAdd);
         btnsub = (Button)findViewById(R.id.btnSubtract);
         btndivide = (Button)findViewById(R.id.btnDivide);
@@ -44,8 +49,8 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
 
         if (num1.equals("")||num2.equals("")) {
             return;
-        }
-        mCalculator= new Calculator();
+        }//TOD add new line after if-statment
+        mCalculator= new Calculator();//TOD add new line before switch
         switch(view.getId()){
             case R.id.btnAdd:
                 result=mCalculator.addition(num1,num2);
@@ -59,7 +64,7 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
             case R.id.btnMultiply:
                 result=mCalculator.multiply(num1,num2);
                 break;
-        }
+        }//TOD add new line after switch
         tvresult.setText(result);
     }
 }
