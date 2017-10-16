@@ -43,7 +43,7 @@ import static junit.framework.Assert.assertNotNull;
         public void testViews() {
             activityController.create();
             activityController.start();
-            activityController.resume();
+            activityController.resume(); //TODO move Activity lifecycle-methods in init-method
 
             CalculatorActivity calculatorActivity = activityController.get();
 
