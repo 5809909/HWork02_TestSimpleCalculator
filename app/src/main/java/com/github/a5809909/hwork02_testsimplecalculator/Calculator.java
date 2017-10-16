@@ -1,25 +1,29 @@
 package com.github.a5809909.hwork02_testsimplecalculator;
 
 public class Calculator implements ICalculator {
+    public static final String CANNOT_DIVIDE = "Cannot DIVIDE!";
 
     @Override
-    public String addition(String num1, String num2) {
-        return String.valueOf(Float.parseFloat(num1)+Float.parseFloat(num2));
+    public String addition(String firstNumber, String secondNumber) {
+        return String.valueOf(Float.parseFloat(firstNumber) + Float.parseFloat(secondNumber));
     }
 
     @Override
-    public String subtraction(String num1, String num2) {
-        return String.valueOf(Float.parseFloat(num1)-Float.parseFloat(num2));
+    public String subtraction(String firstNumber, String secondNumber) {
+        return String.valueOf(Float.parseFloat(firstNumber) - Float.parseFloat(secondNumber));
     }
 
     @Override
-    public String division(String num1, String num2) {
-        if (Integer.parseInt(num2)==0){return "Cannot DIVIDE!";} else
-        return String.valueOf(Float.parseFloat(num1)/Float.parseFloat(num2));
+    public String division(String firstNumber, String secondNumber) {
+
+        if (Integer.parseInt(secondNumber) == 0) {
+            return CANNOT_DIVIDE;
+        } else
+            return String.valueOf(Float.parseFloat(firstNumber) / Float.parseFloat(secondNumber));
     }
 
     @Override
-    public String multiply(String num1, String num2) {
-        return String.valueOf(Float.parseFloat(num1)*Float.parseFloat(num2));
+    public String multiply(String firstNumber, String secondNumber) {
+        return String.valueOf(Float.parseFloat(firstNumber) * Float.parseFloat(secondNumber));
     }
 }

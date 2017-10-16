@@ -8,58 +8,62 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class CalculatorActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btnAdd,btnsub,btndivide,btnmul;
-    private TextView tvresult;
+    private Button mAddButton, mSubtractButton, mDivideButton, mMultiplyButton;
+    private TextView mResultValueTextView;
 
-    private EditText etfirst,etsecond;
+    private EditText mFirstValueEditText, mSecondValueEditText;
     ICalculator mCalculator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_calculator);
         init();
     }
 
     private void init() {
-        btnAdd =(Button)findViewById(R.id.btnAdd);
-        btnsub = (Button)findViewById(R.id.btnSubtract);
-        btndivide = (Button)findViewById(R.id.btnDivide);
-        btnmul = (Button)findViewById(R.id.btnMultiply);
-        etfirst = (EditText)findViewById(R.id.etFirstNumber);
-        etsecond =(EditText)findViewById(R.id.etSecondNumber);
-        tvresult = (TextView)findViewById(R.id.tvResult);
+        mAddButton = (Button) findViewById(R.id.btnAdd);
+        mSubtractButton = (Button) findViewById(R.id.btnSubtract);
+        mDivideButton = (Button) findViewById(R.id.btnDivide);
+        mMultiplyButton = (Button) findViewById(R.id.btnMultiply);
+        mFirstValueEditText = (EditText) findViewById(R.id.etFirstNumber);
+        mSecondValueEditText = (EditText) findViewById(R.id.etSecondNumber);
+        mResultValueTextView = (TextView) findViewById(R.id.tvResult);
 
-        btnAdd.setOnClickListener(this);
-        btnsub.setOnClickListener(this);
-        btndivide.setOnClickListener(this);
-        btnmul.setOnClickListener(this);
+        mAddButton.setOnClickListener(this);
+        mSubtractButton.setOnClickListener(this);
+        mDivideButton.setOnClickListener(this);
+        mMultiplyButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        String num1 = etfirst.getText().toString();
-        String num2 = etsecond.getText().toString();
+        String firstNumber = mFirstValueEditText.getText().toString();
+        String secondNumber = mSecondValueEditText.getText().toString();
         String result = "";
 
-        if (num1.equals("")||num2.equals("")) {
+        if (firstNumber.equals("") || secondNumber.equals("")) {
             return;
         }
-        mCalculator= new Calculator();
-        switch(view.getId()){
+
+        mCalculator = new Calculator();
+
+        switch (view.getId()) {
             case R.id.btnAdd:
-                result=mCalculator.addition(num1,num2);
+                result = mCalculator.addition(firstNumber, secondNumber);
                 break;
             case R.id.btnSubtract:
-                result=mCalculator.subtraction(num1,num2);
+                result = mCalculator.subtraction(firstNumber, secondNumber);
                 break;
             case R.id.btnDivide:
-                result=mCalculator.division(num1,num2);
+                result = mCalculator.division(firstNumber, secondNumber);
                 break;
             case R.id.btnMultiply:
-                result=mCalculator.multiply(num1,num2);
+                result = mCalculator.multiply(firstNumber, secondNumber);
                 break;
         }
-        tvresult.setText(result);
+
+        mResultValueTextView.setText(result);
     }
 }

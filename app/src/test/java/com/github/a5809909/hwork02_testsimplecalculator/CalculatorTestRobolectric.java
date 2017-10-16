@@ -25,12 +25,14 @@ import static junit.framework.Assert.assertNotNull;
     public class CalculatorTestRobolectric {
 
         private ActivityController<CalculatorActivity> activityController;
-
         private CalculatorActivity calculatorActivity;
 
         @Before
         public void init(){
             activityController= Robolectric.buildActivity(CalculatorActivity.class);
+            activityController.create();
+            activityController.start();
+            activityController.resume();
         }
 
         @After
@@ -38,15 +40,9 @@ import static junit.framework.Assert.assertNotNull;
             activityController.pause().stop().destroy();
         }
 
-
         @Test
         public void testViews() {
-            activityController.create();
-            activityController.start();
-            activityController.resume();
-
             CalculatorActivity calculatorActivity = activityController.get();
-
             boolean isEditTextFirstNumberEnable=calculatorActivity.findViewById(R.id.etFirstNumber).isEnabled();
             assertEquals(isEditTextFirstNumberEnable,true);
             boolean isEditTextSecondNumberEnable = calculatorActivity.findViewById(R.id.etSecondNumber).isEnabled();
@@ -56,7 +52,6 @@ import static junit.framework.Assert.assertNotNull;
             Assert.assertEquals(calculatorActivity.findViewById(R.id.btnSubtract).getVisibility(), View.VISIBLE);
             Assert.assertTrue(calculatorActivity.findViewById(R.id.btnMultiply).getVisibility()==View.VISIBLE);
             Assert.assertFalse(calculatorActivity.findViewById(R.id.btnDivide).getVisibility()!=View.VISIBLE);
-
 
             TextView mtvResult = (TextView)calculatorActivity.findViewById(R.id.tvResult);
             EditText metFirstNumber = (EditText) calculatorActivity.findViewById(R.id.etFirstNumber);

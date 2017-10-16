@@ -1,8 +1,11 @@
 package com.github.a5809909.hwork02_testsimplecalculator;
 
 public interface ICalculator {
-    String addition(String num1, String num2);
-    String subtraction(String num1, String num2);
-    String division(String num1, String num2);
-    String multiply(String num1, String num2);
+    String addition(String firstNumber, String secondNumber);
+
+    String subtraction(String firstNumber, String secondNumber);
+
+    String division(String firstNumber, String secondNumber);
+
+    String multiply(String firstNumber, String secondNumber);
     }
