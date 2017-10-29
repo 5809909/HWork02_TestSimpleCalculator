@@ -1,22 +1,19 @@
 package com.github.a5809909.hwork02_testsimplecalculator;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.robolectric.Robolectric;
-import org.robolectric.android.controller.ActivityController;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.stub;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -25,6 +22,9 @@ public class CalculatorTestMockito {
 
     private ICalculator mMockCalc;
     private ICalculator mSpyCalc;
+
+    @Captor
+    ArgumentCaptor<String> argumentCaptor;
 
     @Before
     public void setup() {
@@ -66,6 +66,18 @@ public class CalculatorTestMockito {
         mSpyCalc.addition("8","2");
         verify(mSpyCalc).addition("8","2");
         assertEquals("10.0", mSpyCalc.addition("8","2"));
-
     }
+    @Test
+    public void CalcSpyWithCaptor(){
+        verify(mSpyCalc).addition("5","22");
+        verify(mSpyCalc).addition(argumentCaptor.capture(),argumentCaptor.capture());
+        List<String> value = argumentCaptor.getAllValues();
+        assertEquals(String.valueOf("5"), value.get(0));
+        assertEquals(String.valueOf("22"), value.get(1));
+    }
+    @Test
+    public void doReturnn(){
+        doReturn(null).when(mMockCalc).addition("5","2");
+    }
+
 }
